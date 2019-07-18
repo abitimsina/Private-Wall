@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Private Wall</title>
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<body>
+
+
+{% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+{% if messages %}                            <!-- check if there are any messages -->
+    {% for message in messages %}            <!-- loop through the messages -->
+        <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+    {% endfor %}
+{% endif %}
+{% endwith %}
+
+
+    <h1>Login and Registration</h1>
+    <h3>Register here!</h3>
+   
+    <form action="/process" method="post">
+    <p>First Name: <input type="text" name="firstname" value=""></p>
+    <p>Last Name: <input type="text" name="lastname" value=""></p>
+    <p>Email: <input type="text" name="email" value=""></p>
+    <p>Password: <input type="text" name="password" value=""></p>
+    <p>Password Confirmation: <input type="text" name="password_confirm" value=""></p>
+
+    <input type="submit" name="Submit" value="Register!">
+    </form>
+
+    <h3>Login Here!</h3>
+
+    <form action="/login" method="POST">
+        <p>Email: <input type="text" name="email" id=""></p>
+        <p>Password: <input type="text" name="password" id=""></p>
+
+    <input type="submit" name="" value="Login">
+    </form>
+
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Private Wall</title>
+</head>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<body>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+
+        <h1>Coding Dojo Wall</h1>
+
+        {% for buddy in all_users %}
+        <h2>Welcome, {{buddy['first_name']}}</h2>
+        <a href="/logout" class="btn btn-primary">Logout</a>
+        {% endfor %}
+
+
+
+        <h2>{{ messages_total }} Message(s) for You</h2>
+            {% for one in messages %}
+                <p> {{ one["first_name"] }} said {{one["created_at"]}}
+                <a href = "/delete/{{ one['messages.id'] }}">Delete Comment</a></p>
+                <p>{{ one["messages"] }}</p>
+            {% endfor %}
+
+
+
+            <h2>Send Messages</h2>
+
+            {% for message in all_sent %}
+            <p>You have sent {{ message["COUNT(*)"] }} so far</p>
+            {% endfor %}
+
+
+
+            {% for one_message in send_message %}
+                {% if one_message["id"] != session["user_id"] %}
+                <form action="/messages" method="POST">
+                    {{ one_message["first_name"] }}
+                    <input class = "form-control" type = "text" name ="message" style = "width: 350px;">
+                    <!-- sometimes they have (one_message[0]["user_id or id"]) -->
+                    <input type = "hidden" name = "recepient_id" value = "{{ one_message['id'] }}" style = "display: inline-block;">
+                    <input type= "submit" class = "btn btn-secondary" value = "Send" style = "margin-top: 15px; display: inline-block;">
+                </form>
+                {% endif %}
+            {% endfor %}
+
+    </body>
+
+</body>
+</html>
